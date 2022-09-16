@@ -1,118 +1,107 @@
-import React,{useState, useEffect} from 'react'
+import React, { useState } from 'react'
+
+export default function App4() {
 
 
-// getting the values of local storage
-const getDatafromLS=()=>{
-  const data = localStorage.getItem('books');
-  if(data){
-    return JSON.parse(data);
+  //state
+  const [userData, setUserData] = useState({
+    name: "",
+    surName: "",
+    age: "",
+    employeeData: []
+  })
+  let changeData = (e) => {
+   
+    setUserData((userData) => ({
+      ...userData,
+      [e.target.name]: e.target.value,
+     
+    }));
   }
-  else{
-    return []
-  }
-}
 
-export const App4= () => {
 
-  
-  // input field states
-  const [name, setName]=useState('');
-  const [surName, setSurName]=useState('');
-  const [cls, setCls]=useState('');
-  const [books, setbooks]=useState(getDatafromLS());
+  //function
+  let handleSubmit = (e) => {
+    e.preventDefault()
+    console.log('ok')
+    
+    var employeeData = userData.employeeData;
+    let name = userData.name;
+    let surName = userData.surName;
+    let age = userData.age;
+    let newEmployee = {
+      'name': name,
+      'surName': surName,
+      'age': age
 
-  //submit
-  const handleAddBookSubmit=(e)=>{
-    e.preventDefault();
-    // obj
-    let book={
-      name,
-      surName,
-      cls
+
     }
-    setbooks([...books,book]);
-    setName('');
-    setSurName(''); //filled clr after submit data
-    setCls('');
-  }
-
-  // delete book from LS
- /* const deleteBook=(isbn)=>{
-    const filteredBooks=books.filter((element,index)=>{
-      return element.isbn !== isbn
+    employeeData.push(newEmployee)
+    setUserData({
+      ...userData,
+      employeeData: employeeData
     })
-    setbooks(filteredBooks);
-  }
-  */
+  
+ 
 
-  // saving data to local storage
-  useEffect(()=>{
-    localStorage.setItem('books',JSON.stringify(books));
-  },[books])
+  }
+ 
+
+  console.log("empl",userData)
+
+ /* const inputGroupChangeHandler = (event) => {
+    setProjectGroupDetails((prevState) => ({
+       ...prevState,
+       [event.target.id]: event.target.value
+    }));
+}
+*/
+
 
   return (
-    <div className='wrapper'>
-        <h2>React </h2>
-      <h1>student Book</h1>
-      
-     
-      <div className='main'>
+    
+    <>
+    
+      <h1>Rfc Create</h1>
 
-        <div className='form-container'>
-          <form autoComplete="off" className='form-group'
-          onSubmit={handleAddBookSubmit}>
-            <label>Name</label>
-            <input type="text" className='form-control' required
-            onChange={(e)=>setName(e.target.value)} value={name}></input>
-            <br></br>
-            <label>surName</label>
-            <input type="text" className='form-control' required
-            onChange={(e)=>setSurName(e.target.value)} value={surName}></input>
-            <br></br>
-            <label>Age</label>
-            <input type="text" className='form-control' required
-            onChange={(e)=>setCls(e.target.value)} value={cls}></input>
-            <br></br>
-            <button type="submit" className='btn btn-success btn-md'>
-              ADD
-            </button>
-          </form>
-        </div>
+      <form autoComplete="off" onSubmit={handleSubmit} className='form-group'
+      >
+        <label>Name</label>
+        <input type="text" name='name' onChange={changeData} value={userData.name} className='form-control' required></input>
+        <br></br>
+        <label>surName</label>
+        <input type="text" name='surName' onChange={changeData} className='form-control' required></input>
+        <br></br>
+        <label>Age</label>
+        <input type="text" name='age' onChange={changeData} className='form-control' required></input>
+        <br></br>
+        <button type="submit" className='btn btn-success btn-md' >
+          ADD
+        </button>
+      </form>
+      <div className='table-responsive'>
+        <table className='table'>
+          <tbody>
 
-        <div className='view-container'>
-          {books.length>0&&<>
-            <div className='table-responsive'>
-              <table className='table'>
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>surName</th>
-                    <th>class</th>
-                 
-                  </tr>
-                </thead>
-                <tbody>
-               
-               {books.map(boo=>(
-                   <tr key={book.name}>
-                   <td>{book.name}</td>
-                   <td>{book.surName}</td>
-                 <td>{book.cls}</td>
-                 
-             </tr>   
-             ))   
-               }
-                </tbody>
-              </table>
-            </div>
-           
-          </>}
-          {books.length < 1 && <div>No any students are added yet</div>}
-        </div>
-
+            <tr>
+              <th>Name</th>
+              <th> surName</th>
+              <th>Age</th>
+            </tr>
+            { 
+              userData.employeeData.map((data, indx) =>
+                <tr key={indx}>
+                  <td>{data.name}</td>
+                  <td>{data.surName}</td>
+                  <td>{data.age}</td>
+                </tr>
+              )
+            }
+          </tbody>
+        </table>
       </div>
-    </div>
+
+
+    </>
   )
 }
-
-export default App4;

@@ -5,13 +5,18 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import App3 from './App3';
-import App5 from './App5';
+
+
+
+
+import App4 from './App4';
+import App1 from './App1';
+import Cv from './Cv';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App5/>
+    <Cv/>
   </React.StrictMode>
 );
 
