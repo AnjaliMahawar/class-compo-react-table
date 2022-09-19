@@ -25,8 +25,9 @@ export default function Fv2() {
       ...userData,
       [e.target.name]: e.target.value,
 
-    }));
+    }), fromValidation());
     
+  
   }
 
   let fromValidation = () => {
