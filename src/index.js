@@ -12,11 +12,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import App4 from './App4';
 import App1 from './App1';
 import Cv from './Cv';
+import Cv2 from './Cv2';
+import Fv from './Fv';
+import Fv2 from './Fv2';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Cv/>
+    <Fv2/>
   </React.StrictMode>
 );
 
