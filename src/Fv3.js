@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import "./App1.css";
 
-export default function Fv() {
+export default function Fv3() {
 
 
   //state
@@ -13,7 +13,7 @@ export default function Fv() {
 
 
   })
-  var isValid = true
+  let isValid= true
   const [error, setError] = useState({
     usernameL: "",
     emailL: "",
@@ -25,43 +25,47 @@ export default function Fv() {
       ...userData,
       [e.target.name]: e.target.value,
 
-    }));
+    }), fromValidation(e));
+    
+  
   }
 
-  let fromValidation = () => {
+  let fromValidation = (e) => {
     
 
     let errors = {}
     var paswd = /^(?=.[0-9])(?=.[!@#$%^&])[a-zA-Z0-9!@#$%^&]{7,15}$/;
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-    if (userData.name.trim().length < 5) {
+   if(e.target.name=="name"){
+    if (userData.name.trim().length < 5 ) {
       errors.usernameL = "user name should be valid"
 
     
       isValid = false
     }
+   }
 
-
-    if (userData.email.length < 10) {
-      errors.emailL = "email should be valid"
-
-      isValid = false
-
-    }
+   if(e.target.name=="email"){
+   
     if (!regex.test(userData.email)) {
+        errors.emailL = "email should be valid"
 
       isValid = false
     }
+}
+if(e.target.name=="mo"){
     if (userData.mo.length < 10) {
       errors.MobileL = "Mobile No must be contain valid"
 
 
       isValid = false
     }
+}
     setError(errors)
 
    
     return isValid
+    console.log('valid first',isValid)
 
   }
 
@@ -81,13 +85,13 @@ export default function Fv() {
 
 
     }
-    const isValid = fromValidation();
-    console.log('valid1', isValid)
-
-
+   
+ 
     
     console.log('====', error)
+    console.log(typeof(error))
     if (isValid ) {
+       
       employeeData.push(newEmployee)
       setUserData({
         ...userData,
@@ -119,7 +123,7 @@ export default function Fv() {
       <h1>Rfc Create</h1>
 
       <form autoComplete="off" onSubmit={handleSubmit} className='form-group'
-      >
+  >
         <label>Name</label>
         <input type="text" name='name' onChange={changeData} value={userData.name} className='form-control' required></input><p>
           {error.usernameL}
